@@ -1,30 +1,28 @@
-"""Verifica la conexion a MongoDB y muestra el documento de prueba."""
 import asyncio
-import os
-import json
 from motor.motor_asyncio import AsyncIOMotorClient
-from dotenv import load_dotenv
+import certifi
 
-load_dotenv()
-
+MONGO_URI = "mongodb+srv://Billyow:2002rock@cluster0.wgxtmkn.mongodb.net/?appName=Cluster0"
 
 async def check():
-    client = AsyncIOMotorClient(os.getenv("MONGO_URI"))
+    client = AsyncIOMotorClient(MONGO_URI, tls=True, tlsCAFile=certifi.where(), tlsAllowInvalidCertificates=True)
     db = client["sem_web_advisor"]
-    collection = db["audit_reports"]
-
-    count = await collection.count_documents({})
-    print(f"Documentos encontrados: {count}")
-
-    doc = await collection.find_one({}, {"_id": 0})
-    if doc:
-        print("--- Documento de prueba ---")
-        print(json.dumps(doc, indent=2, ensure_ascii=False))
-    else:
-        print("No se encontraron documentos.")
-
-    client.close()
-
+    col = db["audit_reports"]
+    
+    docs = await col.find().sort("schema:dateCreated", -1).limit(3).to_list(length=3)
+    print(f"Total reportes en DB (últimos 3): {len(docs)}")
+    for i, doc in enumerate(docs):
+        print(f"\n--- REPORTE {i+1} ---")
+        print("Date:", doc.get("schema:dateCreated"))
+        print("URL:", doc.get("schema:url", doc.get("url")))
+        print("Score:", doc.get("onto:fuzzyVerdict", {}).get("schema:value", doc.get("healthScore")))
+        recs = doc.get("onto:Recommendation", doc.get("recommendations", []))
+        print("Recomendaciones encontradas:", len(recs))
+        for r in recs:
+            if isinstance(r, dict):
+                print(" -", r.get("schema:description", r))
+            else:
+                print(" -", r)
 
 if __name__ == "__main__":
     asyncio.run(check())

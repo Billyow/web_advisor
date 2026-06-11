@@ -11,7 +11,6 @@ from app.config import get_settings
 from app.database import connect_to_mongo, close_mongo_connection
 from app.features.audit_report.router import router as audit_router
 
-
 # --- Ciclo de vida de la aplicación ---
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -19,7 +18,6 @@ async def lifespan(app: FastAPI):
     await connect_to_mongo()
     yield
     await close_mongo_connection()
-
 
 # --- Instancia de FastAPI ---
 settings = get_settings()

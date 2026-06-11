@@ -21,3 +21,7 @@ lxml
 # --- Lógica Difusa ---
 numpy
 scikit-fuzzy
+
+# --- Agentes y Ontología ---
+spade
+rdflib

@@ -3,7 +3,7 @@ router.py — Endpoints REST para los reportes de auditoría.
 Expone la API que consume el frontend React.
 """
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Request, status
 from app.features.audit_report.service import get_latest_report, get_all_reports, run_audit
 from app.features.audit_report.schemas_request import AuditRequest
 
@@ -16,20 +16,21 @@ router = APIRouter(
 @router.post(
     "/audit",
     summary="Ejecutar una nueva auditoría web",
-    description="Analiza la URL proporcionada, evalúa con lógica difusa y guarda el reporte.",
-    response_description="Reporte de auditoría generado en formato JSON-LD"
+    description="Analiza la URL usando Lógica Difusa y extrae recomendaciones de la Ontología OWL.",
+    response_description="Reporte final JSON-LD",
+    status_code=status.HTTP_200_OK
 )
-async def create_audit(request: AuditRequest):
+async def create_audit(audit_request: AuditRequest, request: Request):
     """
-    Inicia el proceso de auditoría web para una URL.
+    Inicia el proceso de auditoría web para una URL de forma sincrónica.
     """
     try:
-        report = await run_audit(request.url)
-        return report
+        response = await run_audit(audit_request.url, request)
+        return response
     except Exception as e:
         raise HTTPException(
             status_code=500,
-            detail=f"Error durante la auditoría: {str(e)}"
+            detail=f"Error durante el análisis semántico: {str(e)}"
         )
 
 
