@@ -1,0 +1,22 @@
+# ============================================
+# SEM-Web-Advisor Backend — Dependencias Python
+# ============================================
+
+# --- Framework Web ---
+fastapi==0.115.0
+uvicorn[standard]==0.30.0
+
+# --- MongoDB async ---
+motor==3.6.0
+
+# --- Configuración ---
+pydantic-settings==2.5.0
+python-dotenv==1.0.1
+
+# --- Scraping y Análisis ---
+requests
+beautifulsoup4
+lxml
+
+# --- Lógica Difusa (NumPy manual) ---
+numpy

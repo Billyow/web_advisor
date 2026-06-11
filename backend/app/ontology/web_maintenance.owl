@@ -1,0 +1,79 @@
+[ {
+  "@id" : "http://www.semanticweb.org/jorge/ontologies/2026/5/untitled-ontology-4",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Ontology" ]
+}, {
+  "@id" : "http://www.semanticweb.org/jorge/ontologies/2026/5/untitled-ontology-4#Acceptable",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "http://www.semanticweb.org/jorge/ontologies/2026/5/untitled-ontology-4#SiteStatus"
+  } ],
+  "http://www.w3.org/2002/07/owl#differentFrom" : [ {
+    "@id" : "http://www.semanticweb.org/jorge/ontologies/2026/5/untitled-ontology-4#Excellent"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/jorge/ontologies/2026/5/untitled-ontology-4#Accessibility",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/jorge/ontologies/2026/5/untitled-ontology-4#BestPractices"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/jorge/ontologies/2026/5/untitled-ontology-4#BestPractices",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ]
+}, {
+  "@id" : "http://www.semanticweb.org/jorge/ontologies/2026/5/untitled-ontology-4#Critical",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "http://www.semanticweb.org/jorge/ontologies/2026/5/untitled-ontology-4#SiteStatus"
+  } ],
+  "http://www.w3.org/2002/07/owl#differentFrom" : [ {
+    "@id" : "http://www.semanticweb.org/jorge/ontologies/2026/5/untitled-ontology-4#Excellent"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/jorge/ontologies/2026/5/untitled-ontology-4#Excellent",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "http://www.semanticweb.org/jorge/ontologies/2026/5/untitled-ontology-4#SiteStatus"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/jorge/ontologies/2026/5/untitled-ontology-4#Performance",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/jorge/ontologies/2026/5/untitled-ontology-4#BestPractices"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/jorge/ontologies/2026/5/untitled-ontology-4#Recommendation",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ]
+}, {
+  "@id" : "http://www.semanticweb.org/jorge/ontologies/2026/5/untitled-ontology-4#SEO",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/jorge/ontologies/2026/5/untitled-ontology-4#BestPractices"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/jorge/ontologies/2026/5/untitled-ontology-4#SiteStatus",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ]
+}, {
+  "@id" : "http://www.semanticweb.org/jorge/ontologies/2026/5/untitled-ontology-4#hasStatus",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/jorge/ontologies/2026/5/untitled-ontology-4#Recommendation"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/jorge/ontologies/2026/5/untitled-ontology-4#SiteStatus"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#topObjectProperty"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/jorge/ontologies/2026/5/untitled-ontology-4#suggestsAction",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/jorge/ontologies/2026/5/untitled-ontology-4#Recommendation"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/jorge/ontologies/2026/5/untitled-ontology-4#BestPractices"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#topObjectProperty"
+  } ]
+} ]
