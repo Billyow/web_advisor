@@ -1,21 +1,26 @@
-/**
- * MetricsBar.jsx — Barra visual de progreso para una métrica.
- * Muestra el valor de una métrica con una barra de progreso animada
- * y colores que cambian según el rendimiento (rojo, amarillo, verde).
- */
+import { useState, useEffect } from "react";
 
 /**
- * @param {object} props
- * @param {string} props.label — Nombre de la métrica (ej: "Score")
- * @param {number} props.value — Valor numérico (0-100)
- * @param {number} props.delay — Delay de animación en ms (para escalonar las barras)
+ * MetricsBar.jsx — Mini spinner de progreso para una métrica.
+ * Muestra el valor con un medidor circular SVG (mini-gauge).
  */
 export default function MetricsBar({ label, value, delay = 0 }) {
-  // Determinar color según rango
-  const getBarColor = (val) => {
-    if (val >= 70) return "bg-acceptable";
-    if (val >= 40) return "bg-warning";
-    return "bg-critical";
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setMounted(true), delay);
+    return () => clearTimeout(timer);
+  }, [delay]);
+
+  const radius = 20;
+  const circumference = 2 * Math.PI * radius;
+  const progress = Math.min(value, 100) / 100;
+  const strokeDashoffset = circumference * (1 - progress);
+
+  const getStrokeColor = (val) => {
+    if (val >= 70) return "stroke-acceptable";
+    if (val >= 40) return "stroke-warning";
+    return "stroke-critical";
   };
 
   const getTextColor = (val) => {
@@ -25,26 +30,39 @@ export default function MetricsBar({ label, value, delay = 0 }) {
   };
 
   return (
-    <div className="space-y-2">
-      {/* Label y valor */}
-      <div className="flex items-center justify-between">
-        <span className="text-sm font-medium text-surface-300">{label}</span>
-        <span className={`text-sm font-bold ${getTextColor(value)}`}>
-          {value.toFixed(1)}
+    <div className="flex flex-col items-center gap-2.5">
+      <div className="relative w-14 h-14 flex items-center justify-center filter drop-shadow-md">
+        <svg viewBox="0 0 48 48" className="w-full h-full transform -rotate-90">
+          <circle
+            cx="24"
+            cy="24"
+            r={radius}
+            fill="none"
+            stroke="rgba(255, 255, 255, 0.05)"
+            strokeWidth="3.5"
+          />
+          <circle
+            cx="24"
+            cy="24"
+            r={radius}
+            fill="none"
+            className={getStrokeColor(value)}
+            strokeWidth="4"
+            strokeLinecap="round"
+            strokeDasharray={circumference}
+            style={{
+              strokeDashoffset: mounted ? strokeDashoffset : circumference,
+              transition: "stroke-dashoffset 1.2s cubic-bezier(0.4, 0, 0.2, 1)"
+            }}
+          />
+        </svg>
+        <span className={`absolute inset-0 flex items-center justify-center text-xs font-black ${getTextColor(value)}`}>
+          {Math.round(value)}
         </span>
       </div>
-
-      {/* Barra de progreso */}
-      <div className="w-full h-2.5 rounded-full bg-surface-800 overflow-hidden">
-        <div
-          className={`h-full rounded-full ${getBarColor(value)} transition-all duration-1000 ease-out`}
-          style={{
-            width: `${Math.min(value, 100)}%`,
-            transitionDelay: `${delay}ms`,
-            animation: `score-fill 1.2s ease-out ${delay}ms both`,
-          }}
-        />
-      </div>
+      <span className="text-[10px] font-bold text-surface-400 tracking-wider uppercase text-center max-w-[70px] leading-tight">
+        {label}
+      </span>
     </div>
   );
 }

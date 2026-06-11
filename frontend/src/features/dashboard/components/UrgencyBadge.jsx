@@ -15,12 +15,12 @@ export default function UrgencyBadge({ statusIri }) {
 
   return (
     <span
-      className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold
+      className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[10px] uppercase tracking-wider font-bold whitespace-nowrap shrink-0
         ${config.bgColor} ${config.color} ${config.borderColor} border
         transition-all duration-200`}
     >
       <span
-        className={`w-2 h-2 rounded-full ${config.dotColor} animate-pulse`}
+        className={`w-2.5 h-2.5 rounded-full ${config.dotColor} animate-pulse`}
         aria-hidden="true"
       />
       {config.label}

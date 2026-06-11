@@ -3,15 +3,15 @@
 # ============================================
 
 # --- Framework Web ---
-fastapi==0.115.0
-uvicorn[standard]==0.30.0
+fastapi
+uvicorn[standard]
 
 # --- MongoDB async ---
-motor==3.6.0
+motor
 
 # --- Configuración ---
-pydantic-settings==2.5.0
-python-dotenv==1.0.1
+pydantic-settings
+python-dotenv
 
 # --- Scraping y Análisis ---
 requests

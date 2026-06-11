@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
 
-def build_json_ld_report(url: str, fuzzy_score: float, fuzzy_label: str, issues: list) -> dict:
+def build_json_ld_report(url: str, fuzzy_score: float, fuzzy_label: str, scores: dict, issues: list) -> dict:
     """
     Construye el documento JSON-LD usando el esquema de la ontología web.
     """
@@ -34,7 +34,10 @@ def build_json_ld_report(url: str, fuzzy_score: float, fuzzy_label: str, issues:
         "schema:url": url,
         "onto:fuzzyVerdict": {
             "schema:value": round(fuzzy_score, 1),
-            "schema:description": fuzzy_label
+            "schema:description": fuzzy_label,
+            "onto:accessibilityScore": round(scores.get("accessibility", 0), 1),
+            "onto:performanceScore": round(scores.get("performance", 0), 1),
+            "onto:seoScore": round(scores.get("seo", 0), 1)
         },
         "onto:Recommendation": recommendations
     }

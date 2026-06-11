@@ -1,13 +1,11 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 /* ============================================
-   SEM-Web-Advisor — Design System
-   Tailwind CSS v4 (CSS-first configuration)
+   SEM-Web-Advisor — Design System v3
+   Premium Dark Dashboard
    ============================================ */
 
 @theme {
-  /* --- Color Palette --- */
   --color-primary-50: #eef2ff;
   --color-primary-100: #e0e7ff;
   --color-primary-200: #c7d2fe;
@@ -47,29 +45,24 @@
   --color-info-light: #eff6ff;
   --color-info-border: #bfdbfe;
 
-  /* --- Font --- */
   --font-sans: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
 
-  /* --- Shadows --- */
-  --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-  --shadow-card-hover: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --shadow-verdict: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
+  --shadow-card-hover: 0 20px 40px -12px rgba(0, 0, 0, 0.5), 0 0 20px rgba(99, 102, 241, 0.1);
 
-  /* --- Border Radius --- */
   --radius-card: 1rem;
   --radius-badge: 9999px;
 
-  /* --- Animations --- */
-  --animate-fade-in: fade-in 0.5s ease-out;
-  --animate-slide-up: slide-up 0.5s ease-out;
-  --animate-pulse-glow: pulse-glow 2s ease-in-out infinite;
+  --animate-fade-in: fade-in 0.6s ease-out;
+  --animate-slide-up: slide-up 0.6s ease-out;
+  --animate-pulse-glow: pulse-glow 3s ease-in-out infinite;
   --animate-score-fill: score-fill 1.5s ease-out;
 }
 
 /* ============================================
-   Global Styles
+   Global
    ============================================ */
-* {
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -81,19 +74,35 @@ html {
 
 body {
   font-family: var(--font-sans);
-  background: linear-gradient(135deg, var(--color-surface-950) 0%, var(--color-surface-900) 50%, #1a1a2e 100%);
-  color: var(--color-surface-200);
+  background-color: #050a18;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 10% -10%, rgba(79, 70, 229, 0.18) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 85% 105%, rgba(16, 185, 129, 0.08) 0%, transparent 55%);
+  background-attachment: fixed;
+  color: var(--color-surface-300);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.01em;
 }
 
 #root {
   min-height: 100vh;
 }
 
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.2);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.4);
+}
+
 /* ============================================
-   Keyframe Animations
+   Keyframes
    ============================================ */
 @keyframes fade-in {
   from { opacity: 0; }
@@ -101,49 +110,127 @@ body {
 }
 
 @keyframes slide-up {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes pulse-glow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba(239, 68, 68, 0.6);
-  }
+  0%, 100% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.12), inset 0 0 20px rgba(239, 68, 68, 0.03); }
+  50%      { box-shadow: 0 0 40px rgba(239, 68, 68, 0.25), inset 0 0 30px rgba(239, 68, 68, 0.05); }
 }
 
 @keyframes score-fill {
-  from {
-    stroke-dashoffset: 283;
-  }
+  from { stroke-dashoffset: 327; }
 }
 
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
-  50%      { transform: translateY(-6px); }
+  50%      { transform: translateY(-4px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes glow-ring {
+  0%, 100% { opacity: 0.4; }
+  50%      { opacity: 0.8; }
 }
 
 /* ============================================
-   Glassmorphism Utility
+   Glass Card System
    ============================================ */
-.glass {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+.card {
+  background: rgba(11, 20, 43, 0.5);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
   border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.05),
+    0 4px 24px rgba(0, 0, 0, 0.35),
+    0 12px 48px -8px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.08),
+    0 8px 32px rgba(0, 0, 0, 0.45),
+    0 16px 64px -8px rgba(99, 102, 241, 0.08);
+}
+
+.card-elevated {
+  background: rgba(15, 28, 58, 0.6);
+  backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.08),
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 24px 64px -12px rgba(0, 0, 0, 0.3);
+}
+
+.card-hero {
+  background: linear-gradient(135deg, rgba(16, 28, 64, 0.7) 0%, rgba(10, 18, 42, 0.6) 100%);
+  backdrop-filter: blur(24px) saturate(1.5);
+  -webkit-backdrop-filter: blur(24px) saturate(1.5);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.1),
+    0 12px 48px rgba(0, 0, 0, 0.45),
+    0 0 80px -20px rgba(99, 102, 241, 0.15);
+}
+
+/* Glass classes with premium styling */
+.glass {
+  background: rgba(11, 20, 43, 0.55);
+  backdrop-filter: blur(20px) saturate(1.3);
+  -webkit-backdrop-filter: blur(20px) saturate(1.3);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 
+    inset 0 1px 1px rgba(255, 255, 255, 0.05),
+    0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .glass-light {
-  background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(16, 28, 58, 0.55);
+  backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: 
+    inset 0 1px 1px rgba(255, 255, 255, 0.08),
+    0 8px 32px rgba(0, 0, 0, 0.35);
 }
+
+/* Tab Active Indicator Style */
+.tab-active {
+  position: relative;
+  color: #fff !important;
+}
+
+.tab-active::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 12%;
+  right: 12%;
+  height: 2px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+  box-shadow: 0 0 8px #6366f1;
+}
+
+/* Input glow effect */
+.input-glow:focus {
+  box-shadow: 
+    inset 0 1px 1px rgba(255, 255, 255, 0.05),
+    0 0 20px -2px rgba(99, 102, 241, 0.3),
+    0 0 0 2px rgba(99, 102, 241, 0.2);
+  border-color: rgba(99, 102, 241, 0.5);
+}
+

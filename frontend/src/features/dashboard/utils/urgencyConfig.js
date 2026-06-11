@@ -4,6 +4,26 @@
  * consistencia visual en toda la interfaz.
  */
 
+import {
+  AlertOctagon,
+  AlertTriangle,
+  CheckCircle,
+  XCircle,
+  AlertCircle,
+  CheckCircle2,
+  Accessibility,
+  Puzzle,
+  Search,
+  TrendingUp,
+  Zap,
+  Rocket,
+  Lock,
+  Shield,
+  ClipboardCheck,
+  Sparkles,
+  HelpCircle
+} from "lucide-react";
+
 /**
  * Configuración visual para cada nivel de urgencia del veredicto difuso.
  * Las claves coinciden con los valores de onto:fuzzyVerdict → schema:description.
@@ -17,7 +37,7 @@ export const VERDICT_CONFIG = {
     borderColor: "border-critical/30",
     glowColor: "shadow-[0_0_30px_rgba(239,68,68,0.25)]",
     ringColor: "stroke-critical",
-    icon: "🚨",
+    icon: AlertOctagon,
     pulseAnimation: true,
   },
   Moderado: {
@@ -28,7 +48,7 @@ export const VERDICT_CONFIG = {
     borderColor: "border-warning/30",
     glowColor: "shadow-[0_0_30px_rgba(245,158,11,0.25)]",
     ringColor: "stroke-warning",
-    icon: "⚠️",
+    icon: AlertTriangle,
     pulseAnimation: false,
   },
   Aceptable: {
@@ -39,7 +59,7 @@ export const VERDICT_CONFIG = {
     borderColor: "border-acceptable/30",
     glowColor: "shadow-[0_0_30px_rgba(16,185,129,0.25)]",
     ringColor: "stroke-acceptable",
-    icon: "✅",
+    icon: CheckCircle,
     pulseAnimation: false,
   },
 };
@@ -55,7 +75,7 @@ export const STATUS_CONFIG = {
     bgColor: "bg-critical/10",
     borderColor: "border-critical/30",
     dotColor: "bg-critical",
-    icon: "🔴",
+    icon: XCircle,
   },
   Warning: {
     label: "Advertencia",
@@ -63,7 +83,7 @@ export const STATUS_CONFIG = {
     bgColor: "bg-warning/10",
     borderColor: "border-warning/30",
     dotColor: "bg-warning",
-    icon: "🟡",
+    icon: AlertCircle,
   },
   Acceptable: {
     label: "Aceptable",
@@ -71,7 +91,7 @@ export const STATUS_CONFIG = {
     bgColor: "bg-acceptable/10",
     borderColor: "border-acceptable/30",
     dotColor: "bg-acceptable",
-    icon: "🟢",
+    icon: CheckCircle2,
   },
 };
 
@@ -82,32 +102,32 @@ export const STATUS_CONFIG = {
 export const ACTION_CONFIG = {
   Accessibility: {
     label: "Accesibilidad",
-    icon: "♿",
-    emoji: "🧩",
+    icon: Accessibility,
+    emoji: Puzzle,
     description: "Estándares WCAG y acceso universal",
   },
   SEO: {
     label: "SEO",
-    icon: "🔍",
-    emoji: "📈",
+    icon: Search,
+    emoji: TrendingUp,
     description: "Optimización para motores de búsqueda",
   },
   Performance: {
     label: "Rendimiento",
-    icon: "⚡",
-    emoji: "🚀",
+    icon: Zap,
+    emoji: Rocket,
     description: "Velocidad y Core Web Vitals",
   },
   Security: {
     label: "Seguridad",
-    icon: "🔒",
-    emoji: "🛡️",
+    icon: Lock,
+    emoji: Shield,
     description: "Protección y buenas prácticas de seguridad",
   },
   BestPractices: {
     label: "Buenas Prácticas",
-    icon: "📋",
-    emoji: "✨",
+    icon: ClipboardCheck,
+    emoji: Sparkles,
     description: "Estándares y convenciones web modernas",
   },
 };
@@ -122,7 +142,7 @@ export const ACTION_CONFIG = {
 export function extractOntologyName(iri) {
   if (!iri) return "Unknown";
   // Manejar tanto "onto:Critical" como URIs completos
-  const parts = iri.split(/[#:\/]/);
+  const parts = iri.split(/[#:/]/);
   return parts[parts.length - 1] || "Unknown";
 }
 
@@ -147,5 +167,5 @@ export function getStatusConfig(statusIri) {
  */
 export function getActionConfig(actionIri) {
   const name = extractOntologyName(actionIri);
-  return ACTION_CONFIG[name] || { label: name, icon: "📌", emoji: "📌", description: "" };
+  return ACTION_CONFIG[name] || { label: name, icon: HelpCircle, emoji: HelpCircle, description: "" };
 }

@@ -31,7 +31,7 @@ async def run_audit(url: str) -> dict:
     )
 
     # 3. Construir reporte JSON-LD
-    report = build_json_ld_report(url, fuzzy_score, fuzzy_label, issues)
+    report = build_json_ld_report(url, fuzzy_score, fuzzy_label, scores, issues)
 
     # 4. Guardar en MongoDB
     settings = get_settings()

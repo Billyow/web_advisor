@@ -3,6 +3,7 @@ database.py — Cliente asíncrono de MongoDB usando Motor.
 Proporciona un singleton para reutilizar la conexión en toda la aplicación.
 """
 
+import certifi
 from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase
 from app.config import get_settings
 
@@ -15,7 +16,12 @@ async def connect_to_mongo() -> None:
     """Inicializa la conexión a MongoDB Atlas. Se llama al inicio de la app."""
     global _client, _database
     settings = get_settings()
-    _client = AsyncIOMotorClient(settings.MONGO_URI)
+    _client = AsyncIOMotorClient(
+        settings.MONGO_URI,
+        tls=True,
+        tlsCAFile=certifi.where(),
+        tlsAllowInvalidCertificates=True
+    )
     _database = _client[settings.DB_NAME]
     print(f"[OK] Conectado a MongoDB: {settings.DB_NAME}")
 
